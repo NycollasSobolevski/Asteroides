@@ -598,7 +598,7 @@ def game():
 
 
 #lendo arquivo csv
-scoreArc = pd.read_csv("points.csv")
+scoreArc = pd.read_csv("/points/points.csv")
 scoreArc = scoreArc.sort_values(by='Score',ascending=False).reset_index()
 # print(scoreArc)
 
