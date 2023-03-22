@@ -600,7 +600,7 @@ def game():
 #lendo arquivo csv
 scoreArc = pd.read_csv("points.csv")
 scoreArc = scoreArc.sort_values(by='Score',ascending=False).reset_index()
-print(scoreArc)
+# print(scoreArc)
 
 resolution = 480
 pygame.init()
