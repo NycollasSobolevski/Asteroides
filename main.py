@@ -8,7 +8,7 @@ import math
 from math import atan2, degrees, radians
 import random
 import time
-import DataBase
+import DataBase as db
 
 #######################################################################################
 
@@ -1018,8 +1018,12 @@ def gameOver():
     GO_button = button.Button((xsize/2) - xISize/2, (ysize/2) - yISize/2 -50, GO_img,GO_tam)
     quit_img = pygame.image.load("images/button_quit.png").convert_alpha()
     quit_button = button.Button((xsize/2) - 65, ysize/2 + (ysize/5), quit_img,0.5)
-
-    DataBase.InsertData(player_nickname,1,score)
+    
+    #inserindo pontuação no banco de dados
+    if(db.FindData(player_nickname)):
+        db.UpdateData(player_nickname,score,1)
+    else:    
+        db.InsertData(player_nickname,1,score)
 
     addLinha = pd.DataFrame({'Nickname':player_nickname,'Score':score},index=[len(scoreArc['Nickname'])+1])
     scoreArc = pd.concat([addLinha,scoreArc])
