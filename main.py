@@ -1,5 +1,6 @@
 from socket import getnameinfo
-import pygame, sys, button
+import pygame, sys
+from addons import button
 import pandas as pd
 from pygame import mixer
 import pygame
@@ -7,7 +8,7 @@ import math
 from math import atan2, degrees, radians
 import random
 import time
-
+import DataBase
 
 #######################################################################################
 
@@ -598,7 +599,7 @@ def game():
 
 
 #lendo arquivo csv
-scoreArc = pd.read_csv("/points/points.csv")
+scoreArc = pd.read_csv("points/points.csv")
 scoreArc = scoreArc.sort_values(by='Score',ascending=False).reset_index()
 # print(scoreArc)
 
@@ -745,8 +746,8 @@ def mainPage(run):
                 #     playPause()
         # screen.fill('black')
 
-        if back_button.draw(screen):
-            pass
+        # if back_button.draw(screen):
+        #     pass
 
         if quit_button.draw(screen):            #Botão quit na tela 
             run = False
@@ -1018,9 +1019,11 @@ def gameOver():
     quit_img = pygame.image.load("images/button_quit.png").convert_alpha()
     quit_button = button.Button((xsize/2) - 65, ysize/2 + (ysize/5), quit_img,0.5)
 
+    DataBase.InsertData(player_nickname,1,score)
+
     addLinha = pd.DataFrame({'Nickname':player_nickname,'Score':score},index=[len(scoreArc['Nickname'])+1])
     scoreArc = pd.concat([addLinha,scoreArc])
-    scoreArc.to_csv('points.csv',columns = ['Nickname','Score'],index=False)
+    scoreArc.to_csv('points/points.csv',columns = ['Nickname','Score'],index=False)
 
     run = True
     while run:
@@ -1043,7 +1046,8 @@ def gameOver():
 mainPage(running)
 
 # salva score no CSV
-addLinha = pd.DataFrame({'Nickname':player_nickname,'Score':score},index=[len(scoreArc['Nickname'])+1])
-scoreArc = pd.concat([addLinha,scoreArc])
-scoreArc.to_csv('points.csv',columns = ['Nickname','Score'],index=False)
+# print("amo ")
+# addLinha = pd.DataFrame({'Nickname':player_nickname,'Score':score},index=[len(scoreArc['Nickname'])+1])
+# scoreArc = pd.concat([addLinha,scoreArc])
+# scoreArc.to_csv('points/points.csv',columns = ['Nickname','Score'],index=False)
 
