@@ -5,7 +5,9 @@ from firebase_admin import firestore
 from firebase_admin import credentials
 import pandas as pd
 
-json = "asteroides-firebase-adminsdk-1qzrt-94bdd72726.json"
+https_proxy="https://rb-proxy-de.bosch.com:8080"
+
+json = "asteroides-firebase-adminsdk-1qzrt-75813797b4.json"
 cred = credentials.Certificate(json)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
